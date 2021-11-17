@@ -1,8 +1,5 @@
 package com.alexeykov.spiritlevel
 
-import android.content.Context
-import android.content.SharedPreferences
-import android.hardware.SensorManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,26 +16,11 @@ import com.alexeykov.spiritlevel.navigation.BottomNavigationItem
 import com.alexeykov.spiritlevel.ui.theme.SpiritLevelTheme
 
 private var sensors: Sensors? = null
-private var Ax: String = ""
-private var Ay: String = ""
-private var Az: String = ""
-private val dataAx = mutableStateOf(Ax)
-private val dataAy = mutableStateOf(Ay)
-private val dataAz = mutableStateOf(Az)
-private var lastAngle: FloatArray = FloatArray(3)
-private var calibrateAngle: FloatArray = FloatArray(3)
-private lateinit var sPref: SharedPreferences
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sensors = Sensors(getSystemService(Context.SENSOR_SERVICE) as SensorManager)
-
-        sPref = getSharedPreferences("Settings", 0)
-        calibrateAngle[2] = sPref.getFloat("CalibratedX", 0f)
-        calibrateAngle[1] = sPref.getFloat("CalibratedY", 0f)
-        calibrateAngle[0] = sPref.getFloat("CalibratedZ", 0f)
-
+        sensors = Sensors(this)
         setContent {
             MainPreview()
         }
@@ -63,34 +45,26 @@ fun Greeting(name: String) {
 
 @Composable
 fun Ox() {
-    val ox by dataAx
+    val ox by sensors!!.getDataAx()
     Text(text = "oX: $ox", Modifier.padding(10.dp))
 }
 
 @Composable
 fun Oy() {
-    val oy by dataAy
+    val oy by sensors!!.getDataAy()
     Text(text = "oY: $oy", Modifier.padding(10.dp))
 }
 
 @Composable
 fun Oz() {
-    val oz by dataAz
+    val oz by sensors!!.getDataAz()
     Text(text = "oZ: $oz", Modifier.padding(10.dp))
 }
 
 @Composable
 fun Calibrate() {
     Button(onClick = {
-        for (i in 0..2) {
-            calibrateAngle[i] = lastAngle[i]
-        }
-        val editor = sPref.edit()
-        editor.putFloat("CalibratedX", calibrateAngle[2])
-        editor.putFloat("CalibratedY", calibrateAngle[1])
-        editor.putFloat("CalibratedZ", calibrateAngle[0])
-        editor.apply()
-//        calibrateData = g.clone()
+        sensors?.calibrate()
     }) {
         Text(text = "Calibrate")
     }
