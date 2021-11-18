@@ -19,18 +19,9 @@ private var dataAx = mutableStateOf("")
 private var dataAy = mutableStateOf("")
 private var dataAz = mutableStateOf("")
 
-class Sensors constructor(context: Context) : SensorEventListener {
+class Sensors : SensorEventListener {
 
     init {
-        // присвоили менеджеру работу с серсором
-        sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        // создали список сенсоров для записи и сортировки
-        rotationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
-
-        sPref = context.getSharedPreferences("Settings", 0)
-        calibrateAngle[2] = sPref.getFloat("CalibratedX", 0f)
-        calibrateAngle[1] = sPref.getFloat("CalibratedY", 0f)
-        calibrateAngle[0] = sPref.getFloat("CalibratedZ", 0f)
         //        magneticFieldSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
 /*        val sensors: List<Sensor> = sensorManager.getSensorList(Sensor.TYPE_ALL)
         if (sensors.isNotEmpty()) {
@@ -41,6 +32,18 @@ class Sensors constructor(context: Context) : SensorEventListener {
                 }
             }
         }*/
+    }
+
+    fun createSensors(context: Context) {
+        // присвоили менеджеру работу с серсором
+        sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        // создали список сенсоров для записи и сортировки
+        rotationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
+
+        sPref = context.getSharedPreferences("Settings", 0)
+        calibrateAngle[2] = sPref.getFloat("CalibratedX", 0f)
+        calibrateAngle[1] = sPref.getFloat("CalibratedY", 0f)
+        calibrateAngle[0] = sPref.getFloat("CalibratedZ", 0f)
     }
 
     fun registerListener() {

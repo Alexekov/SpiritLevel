@@ -15,25 +15,25 @@ import androidx.compose.ui.unit.dp
 import com.alexeykov.spiritlevel.navigation.BottomNavigationItem
 import com.alexeykov.spiritlevel.ui.theme.SpiritLevelTheme
 
-private var sensors: Sensors? = null
+private var sensors: Sensors = Sensors()
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sensors = Sensors(this)
+        sensors.createSensors(this)
         setContent {
             MainPreview()
         }
     }
 
     override fun onPause() {
-        sensors?.unregisterListener()
+        sensors.unregisterListener()
         super.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        sensors?.registerListener()
+        sensors.registerListener()
     }
 
 }
@@ -45,26 +45,26 @@ fun Greeting(name: String) {
 
 @Composable
 fun Ox() {
-    val ox by sensors!!.getDataAx()
+    val ox by sensors.getDataAx()
     Text(text = "oX: $ox", Modifier.padding(10.dp))
 }
 
 @Composable
 fun Oy() {
-    val oy by sensors!!.getDataAy()
+    val oy by sensors.getDataAy()
     Text(text = "oY: $oy", Modifier.padding(10.dp))
 }
 
 @Composable
 fun Oz() {
-    val oz by sensors!!.getDataAz()
+    val oz by sensors.getDataAz()
     Text(text = "oZ: $oz", Modifier.padding(10.dp))
 }
 
 @Composable
 fun Calibrate() {
     Button(onClick = {
-        sensors?.calibrate()
+        sensors.calibrate()
     }) {
         Text(text = "Calibrate")
     }
