@@ -92,13 +92,15 @@ fun DrawCross() {
 }
 
 @Composable
-fun NavigationMenu() {
+fun NavigationMenu(isVisible: Boolean) {
     val items = listOf(
+        BottomNavigationItem.Calibrate,
         BottomNavigationItem.About,
         BottomNavigationItem.Exit
     )
+    if (isVisible)
     BottomNavigation(
-        backgroundColor = colorResource(id = R.color.teal_200),
+//        backgroundColor = colorResource(id = R.color.teal_200),
         contentColor = androidx.compose.ui.graphics.Color.White,
 
     ) {
@@ -122,7 +124,7 @@ fun NavigationMenu() {
 @Composable
 fun MainPreview() {
     SpiritLevelTheme {
-        Scaffold(bottomBar = { NavigationMenu() }) {
+        Scaffold(bottomBar = { NavigationMenu(true) }) {
             // A surface container using the 'background' color from the theme
             Surface(color = MaterialTheme.colors.background) {
                 Column(
@@ -141,7 +143,7 @@ fun MainPreview() {
                     Row(
                         Modifier.fillMaxWidth()
 //                            .height(70.dp)
-                            .padding(start = 10.dp, end = 10.dp, top = 20.dp, bottom = 40.dp),
+                            .padding(start = 10.dp, end = 10.dp, top = 10.dp, bottom = 10.dp),
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -149,7 +151,13 @@ fun MainPreview() {
                         Oy()
 //                        Oz()
                     }
-                    Calibrate()
+                    Row(Modifier.fillMaxWidth()
+                        .padding(bottom = 70.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                    ){
+                        Calibrate()
+                    }
                 }
             }
         }
