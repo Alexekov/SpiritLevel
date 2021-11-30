@@ -3,6 +3,7 @@ package com.alexeykov.spiritlevel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -10,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.alexeykov.spiritlevel.navigation.BottomNavigationItem
@@ -46,19 +48,31 @@ fun Greeting(name: String) {
 @Composable
 fun Ox() {
     val ox by sensors.getDataAx()
-    Text(text = "oX: $ox", Modifier.padding(10.dp))
+    Text(text = "oX\n$ox",
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+        .width(100.dp)
+        .padding(start = 10.dp, end = 10.dp))
 }
 
 @Composable
 fun Oy() {
     val oy by sensors.getDataAy()
-    Text(text = "oY: $oy", Modifier.padding(10.dp))
+    Text(text = "oY\n$oy",
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+        .width(100.dp)
+        .padding(start = 10.dp, end = 10.dp))
 }
 
 @Composable
 fun Oz() {
     val oz by sensors.getDataAz()
-    Text(text = "oZ: $oz", Modifier.padding(10.dp))
+    Text(text = "oZ\n$oz",
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+        .width(100.dp)
+        .padding(10.dp))
 }
 
 @Composable
@@ -71,17 +85,22 @@ fun Calibrate() {
 }
 
 @Composable
+fun DrawCross() {
+    Canvas(modifier = Modifier
+        .fillMaxSize(), onDraw = {
+    })
+}
+
+@Composable
 fun NavigationMenu() {
     val items = listOf(
-        BottomNavigationItem.Home,
-        BottomNavigationItem.Music,
-        BottomNavigationItem.Movies,
-        BottomNavigationItem.Books,
-        BottomNavigationItem.Profile
+        BottomNavigationItem.About,
+        BottomNavigationItem.Exit
     )
     BottomNavigation(
-        backgroundColor = colorResource(id = R.color.purple_200),
-        contentColor = androidx.compose.ui.graphics.Color.White
+        backgroundColor = colorResource(id = R.color.teal_200),
+        contentColor = androidx.compose.ui.graphics.Color.White,
+
     ) {
         items.forEach { item ->
             BottomNavigationItem(
@@ -111,14 +130,24 @@ fun MainPreview() {
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Greeting("Показания датчиков")
                     Row(
-                        Modifier.padding(10.dp),
+                        Modifier.weight(1F)
+                            .padding(top = 10.dp, start = 10.dp, end = 10.dp),
                         horizontalArrangement = Arrangement.Center
+                    ) {
+                        DrawCross()
+                    }
+//                    Greeting("Показания датчиков")
+                    Row(
+                        Modifier.fillMaxWidth()
+//                            .height(70.dp)
+                            .padding(start = 10.dp, end = 10.dp, top = 20.dp, bottom = 40.dp),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         Ox()
                         Oy()
-                        Oz()
+//                        Oz()
                     }
                     Calibrate()
                 }
