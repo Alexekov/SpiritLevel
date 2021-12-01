@@ -2,7 +2,6 @@ package com.alexeykov.spiritlevel
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -34,28 +33,16 @@ class MainActivityFormer(sensor: Sensors) {
                 ) {
                     DrawCross()
                 }
-//                    Greeting("Показания датчиков")
                 Row(
                     Modifier
                         .fillMaxWidth()
-//                            .height(70.dp)
                         .padding(start = 10.dp, end = 10.dp, top = 10.dp, bottom = 70.dp),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Ox()
                     Oy()
-//                        Oz()
                 }
-/*                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 70.dp),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Calibrate()
-                }*/
             }
         }
     }
@@ -68,7 +55,6 @@ class MainActivityFormer(sensor: Sensors) {
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .width(100.dp)
-                .padding(start = 10.dp, end = 10.dp)
         )
     }
 
@@ -80,7 +66,6 @@ class MainActivityFormer(sensor: Sensors) {
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .width(100.dp)
-                .padding(start = 10.dp, end = 10.dp)
         )
     }
 
@@ -91,36 +76,8 @@ class MainActivityFormer(sensor: Sensors) {
         Canvas(modifier = Modifier
             .fillMaxSize(), onDraw = {
             val drawHandler = DrawHandler(drawScopeInit = this)
-            // Bubble
             drawHandler.drawBubble(ox, oy)
-            // Cross
             drawHandler.drawCross()
         })
-    }
-
-    @Composable
-    fun Oz() {
-        val oz by sensors.getDataAz()
-        Text(
-            text = "oZ\n$oz",
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .width(100.dp)
-                .padding(10.dp)
-        )
-    }
-
-    @Composable
-    fun Calibrate() {
-        Button(onClick = {
-            sensors.calibrate()
-        }) {
-            Text(text = "Calibrate")
-        }
-    }
-
-    @Composable
-    fun Greeting(name: String) {
-        Text(text = name, Modifier.padding(10.dp))
     }
 }

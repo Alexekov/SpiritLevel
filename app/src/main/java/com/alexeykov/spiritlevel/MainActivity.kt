@@ -1,14 +1,17 @@
 package com.alexeykov.spiritlevel
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.alexeykov.spiritlevel.navigation.BottomNavigationItem
 import com.alexeykov.spiritlevel.ui.theme.SpiritLevelTheme
+import com.alexeykov.spiritlevel.ui.theme.ThemeState
 import kotlin.system.exitProcess
 
 private var sensors: Sensors = Sensors()
@@ -18,9 +21,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         sensors.createSensors(this)
         setContent {
-            val mainActivityFormer = MainActivityFormer(sensors)
-            mainActivityFormer.DrawSurface()
-//            MainPreview()
+            MainPreview()
         }
     }
 
@@ -48,8 +49,10 @@ fun MainPreview() {
 
 @Composable
 fun NavigationMenu(isVisible: Boolean) {
+    val context = LocalContext.current
     val items = listOf(
         BottomNavigationItem.Calibrate,
+        BottomNavigationItem.Theme,
         BottomNavigationItem.About,
         BottomNavigationItem.Exit
     )
@@ -57,7 +60,7 @@ fun NavigationMenu(isVisible: Boolean) {
         BottomNavigation(
 //        backgroundColor = colorResource(id = R.color.teal_200),
             contentColor = androidx.compose.ui.graphics.Color.White,
-            ) {
+        ) {
             items.forEach { item ->
                 BottomNavigationItem(
                     icon = {
@@ -72,13 +75,15 @@ fun NavigationMenu(isVisible: Boolean) {
                     alwaysShowLabel = true,
                     selected = false,
                     onClick = {
-                        if (item.route == "exit") {
-                            exitProcess(0)
+                        when (item.route) {
+                            "exit" -> exitProcess(0)
+                            "theme" -> ThemeState.isLight = !ThemeState.isLight
+                            "about" -> {
+                                val intent = Intent(context, AboutActivity::class.java)
+                                context.startActivity(intent)
+                            }
+                            "calibrate" -> sensors.calibrate()
                         }
-                        if (item.route == "calibrate") {
-                            sensors.calibrate()
-                        }
-                        /* Add code later */
                     }
                 )
             }
