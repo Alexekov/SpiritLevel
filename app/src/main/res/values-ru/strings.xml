@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Уровень</string>
+    <string name="OK">OK</string>
+    <string name="Calibrate">Калиб.</string>
+    <string name="Theme">Тема</string>
+    <string name="About">О прил.</string>
+    <string name="Exit">Выход</string>
+    <string name="author">Автор: Алексей Кобяков</string>
+    <string name="version">"Версия: "</string>
+</resources>

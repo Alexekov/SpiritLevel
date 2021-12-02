@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
@@ -51,7 +52,7 @@ class MainActivityFormer(sensor: Sensors) {
     fun Ox() {
         val ox by sensors.getDataAx()
         Text(
-            text = "oX\n$ox",
+            text = stringResource(id = R.string.OX).plus(ox),
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .width(100.dp)
@@ -62,7 +63,7 @@ class MainActivityFormer(sensor: Sensors) {
     fun Oy() {
         val oy by sensors.getDataAy()
         Text(
-            text = "oY\n$oy",
+            text = stringResource(id = R.string.OY).plus(oy),
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .width(100.dp)
