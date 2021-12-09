@@ -1,6 +1,6 @@
 package com.alexeykov.spiritlevel.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
+
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
@@ -25,13 +25,16 @@ private val LightColorPalette = lightColors(
 
 object ThemeState {
     var isLight by mutableStateOf(true)
+
+    fun setIsLight(boolean: Boolean) {
+        isLight = boolean
+    }
 }
 
 @Composable
 fun SpiritLevelTheme(
     content: @Composable () -> Unit
 ) {
-    if (isSystemInDarkTheme()) ThemeState.isLight = false
     if (!ThemeState.isLight) {
         MaterialTheme(colors = DarkColorPalette,
             typography = Typography,

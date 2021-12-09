@@ -21,19 +21,6 @@ private var dataAz = mutableStateOf("")
 
 class Sensors : SensorEventListener {
 
-    init {
-        //        magneticFieldSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
-/*        val sensors: List<Sensor> = sensorManager.getSensorList(Sensor.TYPE_ALL)
-        if (sensors.isNotEmpty()) {
-            for (sensor in sensors) {
-                if (sensor.type == Sensor.TYPE_ACCELEROMETER) {
-                    accelerometerSensor = sensor
-                    break
-                }
-            }
-        }*/
-    }
-
     fun createSensors(context: Context) {
         // присвоили менеджеру работу с серсором
         sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager

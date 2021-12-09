@@ -8,7 +8,7 @@ It measures the tilt angle of the device and displays it on the screen.
 It is possible to calibrate the sensors, change the application theme from light to dark and vice versa.
 
 ## Motivation and Context
-For this application, my focus was to learn how use Sensors and Jetpack Compose
+For this application, my focus was to learn about Sensors and Jetpack Compose
 
 ## License
 ```

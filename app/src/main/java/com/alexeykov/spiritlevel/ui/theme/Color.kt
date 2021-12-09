@@ -2,9 +2,8 @@ package com.alexeykov.spiritlevel.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Teal200 = Color(0xFF03DAC5)
-
 val Blue200 = Color(0xFF90caf9)
 val Blue500 = Color(0xFF2196f3)
 val Blue700 = Color(0xFF1976d2)
-val Black = Color(0xFF000000)
+val Yellow500 = Color (0xFFFFEB3B)
+val Yellow700 = Color (0xFFFBC02D)
